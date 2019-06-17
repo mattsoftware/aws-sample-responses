@@ -1,6 +1,6 @@
 {
   "name": "aws-sample-responses",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "index.js",
   "author": "Matt Paine <matt@mattsoftware.com>",
   "license": "MIT"

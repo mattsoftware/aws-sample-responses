@@ -2,7 +2,7 @@
 // https://docs.aws.amazon.com/cli/latest/reference/ec2/copy-image.html
 module.exports.copyImage = image => {
     return {
-        "ImageId": "ami-12345678",
+        "ImageId": "ami-438bea42",
         ...image,
     };
 };
@@ -14,7 +14,7 @@ module.exports.describeImages = images => {
             "VirtualizationType": "paravirtual",
             "Name": "My server",
             "Hypervisor": "xen",
-            "ImageId": "ami-1234567890abcdef0",
+            "ImageId": "ami-5731123e",
             "RootDeviceType": "ebs",
             "State": "available",
             "BlockDeviceMappings": [
@@ -30,7 +30,7 @@ module.exports.describeImages = images => {
             ],
             "Architecture": "x86_64",
             "ImageLocation": "123456789012/My server",
-            "KernelId": "aki-1234567a",
+            "KernelId": "aki-88aa75e1",
             "OwnerId": "123456789012",
             "RootDeviceName": "/dev/sda1",
             "Public": false,
