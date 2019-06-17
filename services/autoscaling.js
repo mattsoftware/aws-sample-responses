@@ -33,7 +33,7 @@ module.exports.describeAutoScalingGroups = groups => {
                 "us-west-2c"
             ],
             "HealthCheckType": "EC2",
-            "NewInstancesProtectedFromScaleIn": false
+            "NewInstancesProtectedFromScaleIn": false,
             ...v,
         })),
     };
