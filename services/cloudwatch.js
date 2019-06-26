@@ -1,8 +1,8 @@
 
 // https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/describe-alarms.html
-module.exports.describeAlerts = alerts => {
+module.exports.describeAlarms = alarms => {
     return {
-        "MetricAlarms": alerts.map(v => ({
+        "MetricAlarms": alarms.map(v => ({
             "EvaluationPeriods": 2,
             "AlarmArn": "arn:aws:cloudwatch:us-east-1:123456789012:alarm:myalarm",
             "StateUpdatedTimestamp": "2014-04-09T18:59:06.442Z",
