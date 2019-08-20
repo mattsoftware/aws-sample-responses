@@ -40,7 +40,7 @@ module.exports.describeAutoScalingGroups = groups => {
 };
 
 // https://docs.aws.amazon.com/cli/latest/reference/autoscaling/update-auto-scaling-group.html
-module.exports.udpateAutoScalingGroup = group => {
+module.exports.updateAutoScalingGroup = group => {
     // Actually, the result is None
     return {
         ...group,
