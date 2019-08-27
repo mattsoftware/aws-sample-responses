@@ -63,4 +63,24 @@ describe('Inspector tests', () => {
             });
         });
     });
+
+    describe('ListFindings tests', () => {
+        test('no findings', () => {
+            const findings = inspector.listFindings([]);
+            expect(findings).toEqual({findingArns: []});
+        });
+
+        test('some findings', () => {
+            const findings = inspector.listFindings([null]);
+            expect(findings).toEqual({findingArns: ["arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw/run/0-MKkpXXPE/finding/0-HwPnsDm4"]});
+        });
+
+        test('multiple findings with some overrides', () => {
+            const findings = inspector.listFindings([null, "arn:custom"]);
+            expect(findings).toEqual({findingArns: [
+                "arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw/run/0-MKkpXXPE/finding/0-HwPnsDm4",
+                "arn:custom",
+            ]});
+        });
+    });
 });
