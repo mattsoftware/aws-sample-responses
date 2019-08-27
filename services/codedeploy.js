@@ -1,11 +1,16 @@
 
 // https://docs.aws.amazon.com/cli/latest/reference/deploy/get-deployment-group.html
+// EDIT: autoScalingGroups may also be an object
 module.exports.getDeploymentGroup = group => {
     return {
         "deploymentGroupInfo": {
             "applicationName": "WordPress_App",
             "autoScalingGroups": [
-                "CodeDeployDemo-ASG"
+                "CodeDeployDemo-ASG",
+                {
+                    "hook": "CodeDeploy-managed-automatic-launch-deployment-hook-WordPressDG-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                    "name": "CodeDeployDemo-ASG-2"
+                }
             ],
             "deploymentConfigName": "CodeDeployDefault.OneAtATime",
             "ec2TagFilters": [
