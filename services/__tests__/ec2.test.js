@@ -22,6 +22,35 @@ describe('ec2 tests', () => {
         });
     });
 
+    describe('describeInstances tests', () => {
+        test('Should return an array of instances', () => {
+            return expect(ec2.describeInstances([{InstanceId: 'i-124'}, {InstanceId: 'i-abc'}])).toEqual({
+                Instances: [
+                    {
+                        InstanceId: 'i-124',
+                        InstanceType: 'r4.large',
+                        Placement: {
+                            AvailabilityZone: 'us-east-1c',
+                            GroupName: 'HDFS-Group-A',
+                            PartitionNumber: 7,
+                            Tenancy: 'default',
+                        },
+                    },
+                    {
+                        InstanceId: 'i-abc',
+                        InstanceType: 'r4.large',
+                        Placement: {
+                            AvailabilityZone: 'us-east-1c',
+                            GroupName: 'HDFS-Group-A',
+                            PartitionNumber: 7,
+                            Tenancy: 'default',
+                        },
+                    },
+                ],
+            });
+        });
+    });
+
     describe('describeTags tests', () => {
         test('Empty tags', () => {
             expect(ec2.describeTags([])).toEqual({

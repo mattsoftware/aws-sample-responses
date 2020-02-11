@@ -54,6 +54,24 @@ module.exports.describeImages = images => {
     };
 };
 
+// https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html
+// NOTE: This output is truncated
+module.exports.describeInstances = instances => {
+    return {
+        "Instances": instances.map(i => ({
+            "InstanceId": "i-0123a456700123456",
+            "InstanceType": "r4.large",
+            "Placement": {
+                "AvailabilityZone": "us-east-1c",
+                "GroupName": "HDFS-Group-A",
+                "PartitionNumber": 7,
+                "Tenancy": "default"
+            },
+            ...i,
+        })),
+    };
+};
+
 // https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-tags.html
 module.exports.describeTags = tags => {
     return {
