@@ -7,6 +7,19 @@ module.exports.copyImage = image => {
     };
 };
 
+// https://docs.aws.amazon.com/cli/latest/reference/ec2/create-image.html
+module.exports.createImage = imageId => {
+    return {
+        "ImageId": imageId,
+    };
+};
+
+// https://docs.aws.amazon.com/cli/latest/reference/ec2/create-tags.html
+module.exports.createTags = () => ({});
+
+// https://docs.aws.amazon.com/cli/latest/reference/ec2/deregister-image.html
+module.exports.deregisterImage = () => ({});
+
 // https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-images.html
 module.exports.describeImages = images => {
     return {
@@ -37,6 +50,19 @@ module.exports.describeImages = images => {
             "ImageType": "machine",
             "Description": "An AMI for my server",
             ...v,
+        })),
+    };
+};
+
+// https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-tags.html
+module.exports.describeTags = tags => {
+    return {
+        "Tags": tags.map(v => ({
+            "ResourceType": "instance",
+            "ResourceId": "i-1234567890abcdef8",
+            "Value": "Test",
+            "Key": "Stack",
+            ...v
         })),
     };
 };

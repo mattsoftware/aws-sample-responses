@@ -10,5 +10,13 @@
   "scripts": {
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "**/*.js",
+      "!coverage/**",
+      "!flow-typed/**"
+    ]
   }
 }
