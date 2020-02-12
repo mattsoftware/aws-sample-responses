@@ -1,3 +1,4 @@
+//@format
 
 const inspector = require('../inspector');
 
@@ -35,31 +36,31 @@ describe('Inspector tests', () => {
 
     describe('DescribeFindings tests', () => {
         test('no findings test', () => {
-            const findings = inspector.describeFindings([], [])
+            const findings = inspector.describeFindings([], []);
             expect(findings).toEqual({findings: [], failedItems: {}});
         });
 
         test('some findings test', () => {
-            const findings = inspector.describeFindings([{}], [])
+            const findings = inspector.describeFindings([{}], []);
             expect(findings).toEqual({
-                findings: [expect.objectContaining({severity: 'Informational'})], 
-                failedItems: {}
+                findings: [expect.objectContaining({severity: 'Informational'})],
+                failedItems: {},
             });
         });
 
         test('some findings with overrides', () => {
-            const findings = inspector.describeFindings([{severity: 'High'}], [])
+            const findings = inspector.describeFindings([{severity: 'High'}], []);
             expect(findings).toEqual({
-                findings: [expect.objectContaining({severity: 'High'})], 
-                failedItems: {}
+                findings: [expect.objectContaining({severity: 'High'})],
+                failedItems: {},
             });
         });
 
         test('Inject some failures', () => {
-            const findings = inspector.describeFindings([], ['arn:aws:inspector:unknown'])
+            const findings = inspector.describeFindings([], ['arn:aws:inspector:unknown']);
             expect(findings).toEqual({
                 findings: [],
-                failedItems: {'arn:aws:inspector:unknown': {retryable: false, failureCode: "ITEM_DOES_NOT_EXIST"}}
+                failedItems: {'arn:aws:inspector:unknown': {retryable: false, failureCode: 'ITEM_DOES_NOT_EXIST'}},
             });
         });
     });
@@ -72,15 +73,21 @@ describe('Inspector tests', () => {
 
         test('some findings', () => {
             const findings = inspector.listFindings([null]);
-            expect(findings).toEqual({findingArns: ["arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw/run/0-MKkpXXPE/finding/0-HwPnsDm4"]});
+            expect(findings).toEqual({
+                findingArns: [
+                    'arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw/run/0-MKkpXXPE/finding/0-HwPnsDm4',
+                ],
+            });
         });
 
         test('multiple findings with some overrides', () => {
-            const findings = inspector.listFindings([null, "arn:custom"]);
-            expect(findings).toEqual({findingArns: [
-                "arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw/run/0-MKkpXXPE/finding/0-HwPnsDm4",
-                "arn:custom",
-            ]});
+            const findings = inspector.listFindings([null, 'arn:custom']);
+            expect(findings).toEqual({
+                findingArns: [
+                    'arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw/run/0-MKkpXXPE/finding/0-HwPnsDm4',
+                    'arn:custom',
+                ],
+            });
         });
     });
 });

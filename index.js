@@ -1,3 +1,4 @@
+//@format
 
 exports.AutoScaling = require('./services/autoscaling');
 exports.CloudWatch = require('./services/cloudwatch');
@@ -8,4 +9,3 @@ exports.Inspector = require('./services/inspector');
 exports.S3 = require('./services/s3');
 exports.SSM = require('./services/ssm');
 exports.SNS = require('./services/sns');
-

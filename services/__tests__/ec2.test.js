@@ -1,10 +1,17 @@
+//@format
 
 const ec2 = require('../ec2');
 
 describe('ec2 tests', () => {
+    describe('copyImage tests', () => {
+        test('copies an image', () => {
+            return expect(ec2.copyImage({ImageId: 'ami-123'})).toEqual({ImageId: 'ami-123'});
+        });
+    });
+
     describe('createImage tests', () => {
         test('creates a pipeline', () => {
-            expect(ec2.createImage('ami-abc')).toEqual({
+            return expect(ec2.createImage('ami-abc')).toEqual({
                 ImageId: 'ami-abc',
             });
         });
@@ -12,13 +19,49 @@ describe('ec2 tests', () => {
 
     describe('createTags tests', () => {
         test('creates a set of tags', () => {
-            expect(ec2.createTags()).toEqual({});
+            return expect(ec2.createTags()).toEqual({});
         });
     });
 
-    describe ('deregisterImage tests', () => {
+    describe('deregisterImage tests', () => {
         test('should return empty object', () => {
             return expect(ec2.deregisterImage()).toEqual({});
+        });
+    });
+
+    describe('describeImages tests', () => {
+        test('Should list images', () => {
+            return expect(ec2.describeImages([{}])).toEqual({
+                Images: [
+                    {
+                        VirtualizationType: 'paravirtual',
+                        Name: 'My server',
+                        Hypervisor: 'xen',
+                        ImageId: 'ami-5731123e',
+                        RootDeviceType: 'ebs',
+                        State: 'available',
+                        BlockDeviceMappings: [
+                            {
+                                DeviceName: '/dev/sda1',
+                                Ebs: {
+                                    DeleteOnTermination: true,
+                                    SnapshotId: 'snap-1234567890abcdef0',
+                                    VolumeSize: 8,
+                                    VolumeType: 'standard',
+                                },
+                            },
+                        ],
+                        Architecture: 'x86_64',
+                        ImageLocation: '123456789012/My server',
+                        KernelId: 'aki-88aa75e1',
+                        OwnerId: '123456789012',
+                        RootDeviceName: '/dev/sda1',
+                        Public: false,
+                        ImageType: 'machine',
+                        Description: 'An AMI for my server',
+                    },
+                ],
+            });
         });
     });
 
@@ -173,59 +216,59 @@ describe('ec2 tests', () => {
 
     describe('describeTags tests', () => {
         test('Empty tags', () => {
-            expect(ec2.describeTags([])).toEqual({
-                Tags: [
-                ],
+            return expect(ec2.describeTags([])).toEqual({
+                Tags: [],
             });
         });
         test('describes default tag', () => {
-            expect(ec2.describeTags([{}])).toEqual({
+            return expect(ec2.describeTags([{}])).toEqual({
                 Tags: [
                     {
-                        "ResourceType": "instance",
-                        "ResourceId": "i-1234567890abcdef8",
-                        "Value": "Test",
-                        "Key": "Stack",
-                    }
+                        ResourceType: 'instance',
+                        ResourceId: 'i-1234567890abcdef8',
+                        Value: 'Test',
+                        Key: 'Stack',
+                    },
                 ],
             });
         });
         test('describes multiple default tags', () => {
-            expect(ec2.describeTags([{}, {}])).toEqual({
+            return expect(ec2.describeTags([{}, {}])).toEqual({
                 Tags: [
                     {
-                        "ResourceType": "instance",
-                        "ResourceId": "i-1234567890abcdef8",
-                        "Value": "Test",
-                        "Key": "Stack",
+                        ResourceType: 'instance',
+                        ResourceId: 'i-1234567890abcdef8',
+                        Value: 'Test',
+                        Key: 'Stack',
                     },
                     {
-                        "ResourceType": "instance",
-                        "ResourceId": "i-1234567890abcdef8",
-                        "Value": "Test",
-                        "Key": "Stack",
-                    }
+                        ResourceType: 'instance',
+                        ResourceId: 'i-1234567890abcdef8',
+                        Value: 'Test',
+                        Key: 'Stack',
+                    },
                 ],
             });
         });
         test('overrides tag values', () => {
-            expect(ec2.describeTags([{ResourceType: 'image', ResourceId: 'ami-test'}, {ResourceId: 'i-test123'}])).toEqual({
+            return expect(
+                ec2.describeTags([{ResourceType: 'image', ResourceId: 'ami-test'}, {ResourceId: 'i-test123'}]),
+            ).toEqual({
                 Tags: [
                     {
-                        "ResourceType": "image",
-                        "ResourceId": "ami-test",
-                        "Value": "Test",
-                        "Key": "Stack",
+                        ResourceType: 'image',
+                        ResourceId: 'ami-test',
+                        Value: 'Test',
+                        Key: 'Stack',
                     },
                     {
-                        "ResourceType": "instance",
-                        "ResourceId": "i-test123",
-                        "Value": "Test",
-                        "Key": "Stack",
-                    }
+                        ResourceType: 'instance',
+                        ResourceId: 'i-test123',
+                        Value: 'Test',
+                        Key: 'Stack',
+                    },
                 ],
             });
         });
     });
 });
-
