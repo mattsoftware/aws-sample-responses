@@ -58,17 +58,21 @@ module.exports.describeImages = images => {
 // NOTE: This output is truncated
 module.exports.describeInstances = instances => {
     return {
-        "Instances": instances.map(i => ({
-            "InstanceId": "i-0123a456700123456",
-            "InstanceType": "r4.large",
-            "Placement": {
-                "AvailabilityZone": "us-east-1c",
-                "GroupName": "HDFS-Group-A",
-                "PartitionNumber": 7,
-                "Tenancy": "default"
+        "Reservations": [
+            {
+                "Instances": instances.map(i => ({
+                    "InstanceId": "i-0123a456700123456",
+                    "InstanceType": "r4.large",
+                    "Placement": {
+                        "AvailabilityZone": "us-east-1c",
+                        "GroupName": "HDFS-Group-A",
+                        "PartitionNumber": 7,
+                        "Tenancy": "default"
+                    },
+                    ...i,
+                })),
             },
-            ...i,
-        })),
+        ],
     };
 };
 
