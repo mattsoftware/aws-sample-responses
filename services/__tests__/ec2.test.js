@@ -51,6 +51,126 @@ describe('ec2 tests', () => {
         });
     });
 
+    describe('describeSecurityGroup tests', () => {
+        test('Describes security groups', () => {
+            return expect(ec2.describeSecurityGroups([{}, {GroupId: 'sg-1234'}])).toEqual({
+                SecurityGroups: [
+                    {
+                        IpPermissionsEgress: [
+                            {
+                                IpProtocol: '-1',
+                                IpRanges: [
+                                    {
+                                        CidrIp: '0.0.0.0/0',
+                                    },
+                                ],
+                                UserIdGroupPairs: [],
+                                PrefixListIds: [],
+                            },
+                        ],
+                        Description: 'My security group',
+                        Tags: [
+                            {
+                                Value: 'SG1',
+                                Key: 'Name',
+                            },
+                        ],
+                        IpPermissions: [
+                            {
+                                IpProtocol: '-1',
+                                IpRanges: [],
+                                UserIdGroupPairs: [
+                                    {
+                                        UserId: '123456789012',
+                                        GroupId: 'sg-903004f8',
+                                    },
+                                ],
+                                PrefixListIds: [],
+                            },
+                            {
+                                PrefixListIds: [],
+                                FromPort: 22,
+                                IpRanges: [
+                                    {
+                                        Description: 'Access from NY office',
+                                        CidrIp: '203.0.113.0/24',
+                                    },
+                                ],
+                                ToPort: 22,
+                                IpProtocol: 'tcp',
+                                UserIdGroupPairs: [],
+                            },
+                        ],
+                        GroupName: 'MySecurityGroup',
+                        VpcId: 'vpc-1a2b3c4d',
+                        OwnerId: '123456789012',
+                        GroupId: 'sg-903004f8',
+                    },
+                    {
+                        IpPermissionsEgress: [
+                            {
+                                IpProtocol: '-1',
+                                IpRanges: [
+                                    {
+                                        CidrIp: '0.0.0.0/0',
+                                    },
+                                ],
+                                UserIdGroupPairs: [],
+                                PrefixListIds: [],
+                            },
+                        ],
+                        Description: 'My security group',
+                        Tags: [
+                            {
+                                Value: 'SG1',
+                                Key: 'Name',
+                            },
+                        ],
+                        IpPermissions: [
+                            {
+                                IpProtocol: '-1',
+                                IpRanges: [],
+                                UserIdGroupPairs: [
+                                    {
+                                        UserId: '123456789012',
+                                        GroupId: 'sg-903004f8',
+                                    },
+                                ],
+                                PrefixListIds: [],
+                            },
+                            {
+                                PrefixListIds: [],
+                                FromPort: 22,
+                                IpRanges: [
+                                    {
+                                        Description: 'Access from NY office',
+                                        CidrIp: '203.0.113.0/24',
+                                    },
+                                ],
+                                ToPort: 22,
+                                IpProtocol: 'tcp',
+                                UserIdGroupPairs: [],
+                            },
+                        ],
+                        GroupName: 'MySecurityGroup',
+                        VpcId: 'vpc-1a2b3c4d',
+                        OwnerId: '123456789012',
+                        GroupId: 'sg-1234',
+                    },
+                ],
+            });
+        });
+
+        test('describeSecurityGroups_ipPermission tests', () => {
+            return expect(ec2.describeSecurityGroups_ipPermission()).toEqual({
+                IpProtocol: '-1',
+                IpRanges: [],
+                PrefixListIds: [],
+                UserIdGroupPairs: [{GroupId: 'sg-903004f8', UserId: '123456789012'}],
+            });
+        });
+    });
+
     describe('describeTags tests', () => {
         test('Empty tags', () => {
             expect(ec2.describeTags([])).toEqual({

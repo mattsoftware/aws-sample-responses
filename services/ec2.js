@@ -72,6 +72,79 @@ module.exports.describeInstances = instances => {
     };
 };
 
+//https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-security-groups.html
+module.exports.describeSecurityGroups = groups => {
+    return {
+        "SecurityGroups": groups.map(g => ({
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1",
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "UserIdGroupPairs": [],
+                    "PrefixListIds": []
+                }
+            ],
+            "Description": "My security group",
+            "Tags": [
+                {
+                    "Value": "SG1",
+                    "Key": "Name"
+                 }
+            ],
+            "IpPermissions": [
+                {
+                    "IpProtocol": "-1",
+                    "IpRanges": [],
+                    "UserIdGroupPairs": [
+                        {
+                             "UserId": "123456789012",
+                             "GroupId": "sg-903004f8"
+                        }
+                    ],
+                    "PrefixListIds": []
+                },
+                {
+                    "PrefixListIds": [],
+                    "FromPort": 22,
+                    "IpRanges": [
+                        {
+                            "Description": "Access from NY office",
+                            "CidrIp": "203.0.113.0/24"
+                        }
+                    ],
+                    "ToPort": 22,
+                    "IpProtocol": "tcp",
+                    "UserIdGroupPairs": []
+                  }
+            ],
+            "GroupName": "MySecurityGroup",
+            "VpcId": "vpc-1a2b3c4d",
+            "OwnerId": "123456789012",
+            "GroupId": "sg-903004f8",
+            ...g,
+        }))
+    };
+};
+
+module.exports.describeSecurityGroups_ipPermission = (permission) => {
+    return {
+        "IpProtocol": "-1",
+        "IpRanges": [],
+        "UserIdGroupPairs": [
+            {
+                 "UserId": "123456789012",
+                 "GroupId": "sg-903004f8"
+            }
+        ],
+        "PrefixListIds": [],
+        ...permission,
+    };
+};
+
 // https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-tags.html
 module.exports.describeTags = tags => {
     return {
