@@ -89,6 +89,38 @@ describe('codepipeline tests', () => {
             });
         });
     });
+
+    describe('listPipelineExecutions tests', () => {
+        test('Empty list of executions', () => {
+            expect(codepipeline.listPipelineExecutions([])).toEqual({
+                pipelineExecutionSummaries: [],
+            });
+        });
+
+        test('Lists pipeline executions', () => {
+            expect(codepipeline.listPipelineExecutions([{}])).toEqual({
+                pipelineExecutionSummaries: [
+                    expect.objectContaining({ pipelineExecutionId: 'yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy' }),
+                ],
+            });
+        });
+
+        test('Overrides some data', () => {
+            expect(
+                codepipeline.listPipelineExecutions([
+                    { pipelineExecutionId: 'test1' },
+                    {},
+                    { pipelineExecutionId: 'test2' },
+                ]),
+            ).toEqual({
+                pipelineExecutionSummaries: [
+                    expect.objectContaining({ pipelineExecutionId: 'test1' }),
+                    expect.objectContaining({ pipelineExecutionId: 'yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy' }),
+                    expect.objectContaining({ pipelineExecutionId: 'test2' }),
+                ],
+            });
+        });
+    });
 });
 
 describe('Codepipeline event tests', () => {

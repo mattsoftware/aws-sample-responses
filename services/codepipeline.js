@@ -207,6 +207,37 @@ module.exports.listActionExecutions = (details/*: Array<Object> */) /*: {} */ =>
     };
 };
 
+// https://docs.aws.amazon.com/codepipeline/latest/APIReference/API_ListPipelineExecutions.html
+module.exports.listPipelineExecutions = (summaries/*: Array<Object> */) /*: {} */ => {
+    return {
+        pipelineExecutionSummaries: summaries.map(v => (
+            {
+                "pipelineExecutionId": "yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy",
+                "status": "Succeeded",
+                "startTime": "2020-06-18T13:50:26.668000+10:00",
+                "lastUpdateTime": "2020-06-18T14:15:57.834000+10:00",
+                "sourceRevisions": [
+                    {
+                        "actionName": "ActionOne",
+                        "revisionId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                        "revisionSummary": "Amazon S3 version id: zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+                    },
+                    {
+                        "actionName": "ActionTwo",
+                        "revisionId": "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv",
+                        "revisionSummary": "Amazon S3 version id: uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu"
+                    }
+                ],
+                "trigger": {
+                    "triggerType": "CloudWatchEvent",
+                    "triggerDetail": "arn:aws:events:ap-southeast-2:111111111111:rule/DeploymentWatch"
+                },
+                ...v,
+            }
+        )),
+    };
+};
+
 // https://docs.aws.amazon.com/codepipeline/latest/userguide/actions-invoke-lambda-function.html#actions-invoke-lambda-function-json-event-example
 module.exports.event_job = (job/*: AWS_CodePipeline_Job */, jobData/*: AWS_CodePipeline_Job_Data */, userParams/*:string*/) => {
     return ({
