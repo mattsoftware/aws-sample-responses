@@ -19,4 +19,9 @@ describe('Cloudwatch tests', () => {
             expect(alarms).toEqual({MetricAlarms: [expect.objectContaining({EvaluationPeriods: 3})]});
         });
     });
+
+    describe('putMetricData tests', () => {
+        expect(cloudwatch.putMetricData()).toEqual({});
+    });
 });
+

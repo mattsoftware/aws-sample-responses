@@ -1,3 +1,4 @@
+//@format
 
 // https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/describe-alarms.html
 module.exports.describeAlarms = alarms => {
@@ -34,4 +35,7 @@ module.exports.describeAlarms = alarms => {
         })),
     };
 };
+
+// https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/put-metric-data.html
+module.exports.putMetricData = () => ({});
 
