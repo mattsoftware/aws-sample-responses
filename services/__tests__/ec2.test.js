@@ -5,7 +5,7 @@ const ec2 = require('../ec2');
 describe('ec2 tests', () => {
     describe('copyImage tests', () => {
         test('copies an image', () => {
-            return expect(ec2.copyImage({ImageId: 'ami-123'})).toEqual({ImageId: 'ami-123'});
+            return expect(ec2.copyImage({ ImageId: 'ami-123' })).toEqual({ ImageId: 'ami-123' });
         });
     });
 
@@ -67,7 +67,7 @@ describe('ec2 tests', () => {
 
     describe('describeInstances tests', () => {
         test('Should return an array of instances', () => {
-            return expect(ec2.describeInstances([{InstanceId: 'i-124'}, {InstanceId: 'i-abc'}])).toEqual({
+            return expect(ec2.describeInstances([{ InstanceId: 'i-124' }, { InstanceId: 'i-abc' }])).toEqual({
                 Reservations: [
                     {
                         Instances: [
@@ -100,7 +100,7 @@ describe('ec2 tests', () => {
 
     describe('describeSecurityGroup tests', () => {
         test('Describes security groups', () => {
-            return expect(ec2.describeSecurityGroups([{}, {GroupId: 'sg-1234'}])).toEqual({
+            return expect(ec2.describeSecurityGroups([{}, { GroupId: 'sg-1234' }])).toEqual({
                 SecurityGroups: [
                     {
                         IpPermissionsEgress: [
@@ -213,7 +213,7 @@ describe('ec2 tests', () => {
                 IpProtocol: '-1',
                 IpRanges: [],
                 PrefixListIds: [],
-                UserIdGroupPairs: [{GroupId: 'sg-903004f8', UserId: '123456789012'}],
+                UserIdGroupPairs: [{ GroupId: 'sg-903004f8', UserId: '123456789012' }],
             });
         });
     });
@@ -256,7 +256,7 @@ describe('ec2 tests', () => {
         });
         test('overrides tag values', () => {
             return expect(
-                ec2.describeTags([{ResourceType: 'image', ResourceId: 'ami-test'}, {ResourceId: 'i-test123'}]),
+                ec2.describeTags([{ ResourceType: 'image', ResourceId: 'ami-test' }, { ResourceId: 'i-test123' }]),
             ).toEqual({
                 Tags: [
                     {
