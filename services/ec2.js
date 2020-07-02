@@ -1,6 +1,7 @@
+//@flow strict
 
 // https://docs.aws.amazon.com/cli/latest/reference/ec2/copy-image.html
-module.exports.copyImage = image => {
+module.exports.copyImage = (image/*:any*/) => {
     return {
         "ImageId": "ami-438bea42",
         ...image,
@@ -8,7 +9,7 @@ module.exports.copyImage = image => {
 };
 
 // https://docs.aws.amazon.com/cli/latest/reference/ec2/create-image.html
-module.exports.createImage = imageId => {
+module.exports.createImage = (imageId/*:any*/) => {
     return {
         "ImageId": imageId,
     };
@@ -21,7 +22,7 @@ module.exports.createTags = () => ({});
 module.exports.deregisterImage = () => ({});
 
 // https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-images.html
-module.exports.describeImages = images => {
+module.exports.describeImages = (images/*:any*/) => {
     return {
         "Images": images.map(v => ({
             "VirtualizationType": "paravirtual",
@@ -56,7 +57,7 @@ module.exports.describeImages = images => {
 
 // https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html
 // NOTE: This output is truncated
-module.exports.describeInstances = instances => {
+module.exports.describeInstances = (instances/*:any*/) => {
     return {
         "Reservations": [
             {
@@ -77,7 +78,7 @@ module.exports.describeInstances = instances => {
 };
 
 //https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-security-groups.html
-module.exports.describeSecurityGroups = groups => {
+module.exports.describeSecurityGroups = (groups/*:any*/) => {
     return {
         "SecurityGroups": groups.map(g => ({
             "IpPermissionsEgress": [
@@ -134,7 +135,7 @@ module.exports.describeSecurityGroups = groups => {
     };
 };
 
-module.exports.describeSecurityGroups_ipPermission = (permission) => {
+module.exports.describeSecurityGroups_ipPermission = (permission/*:any*/) => {
     return {
         "IpProtocol": "-1",
         "IpRanges": [],
@@ -150,7 +151,7 @@ module.exports.describeSecurityGroups_ipPermission = (permission) => {
 };
 
 // https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-tags.html
-module.exports.describeTags = tags => {
+module.exports.describeTags = (tags /*: any */) => {
     return {
         "Tags": tags.map(v => ({
             "ResourceType": "instance",
@@ -160,5 +161,42 @@ module.exports.describeTags = tags => {
             ...v
         })),
     };
+};
+
+// https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-interruptions.html
+// instance-action can be hibernate, stop or terminate
+/*:: type EC2_Event_SpotInterruption_Action = "hibernate"|"stop"|"terminate" */
+/*:: type EC2_Event_SpotInterruption = {
+    version: number,
+    id: string,
+    'detail-type': string,
+    source: "aws.ec2",
+    account: string,
+    time: string,
+    region: string,
+    resources: Array<string>,
+    detail: {
+        'instance-id': string,
+        'instance-action': EC2_Event_SpotInterruption_Action,
+    },
+} */
+module.exports.event_spot_interruption = (spot/*: EC2_Event_SpotInterruption */, action/*:EC2_Event_SpotInterruption_Action*/) => {
+    return (
+        {
+            "version": "0",
+            "id": "12345678-1234-1234-1234-123456789012",
+            "detail-type": "EC2 Spot Instance Interruption Warning",
+            "source": "aws.ec2",
+            "account": "123456789012",
+            "time": "yyyy-mm-ddThh:mm:ssZ",
+            "region": "us-east-2",
+            "resources": ["arn:aws:ec2:us-east-2:123456789012:instance/i-1234567890abcdef0"],
+            "detail": {
+                "instance-id": "i-1234567890abcdef0",
+                "instance-action": action
+            },
+            ...spot,
+        }
+    );
 };
 

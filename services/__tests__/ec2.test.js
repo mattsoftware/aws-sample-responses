@@ -276,3 +276,17 @@ describe('ec2 tests', () => {
         });
     });
 });
+
+describe('ec2 spot events tests', () => {
+    test('returns a spot event', () => {
+        expect(ec2.event_spot_interruption()).toEqual(
+            expect.objectContaining({ detail: expect.objectContaining({ 'instance-id': 'i-1234567890abcdef0' }) }),
+        );
+    });
+
+    test('returns a custom spot event', () => {
+        expect(ec2.event_spot_interruption({ detail: { 'instance-id': 'i-abc' } })).toEqual(
+            expect.objectContaining({ detail: expect.objectContaining({ 'instance-id': 'i-abc' }) }),
+        );
+    });
+});
