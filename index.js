@@ -12,3 +12,5 @@ exports.Lambda = require('./services/lambda');
 exports.S3 = require('./services/s3');
 exports.SSM = require('./services/ssm');
 exports.SNS = require('./services/sns');
+
+exports.IPRanges = require('./misc/ip_ranges');
