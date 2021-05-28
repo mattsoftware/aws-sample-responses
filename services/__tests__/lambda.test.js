@@ -3,6 +3,12 @@
 
 const lambda = require('../lambda');
 
+describe('Lambda api tests', () => {
+    test('invoke', () => {
+        expect(lambda.invoke()).toEqual({ StatusCode: 200, ExecutedVersion: '$LATEST' });
+    });
+});
+
 describe('Lambda event tests', () => {
     describe('context tests', () => {
         test('returns context', () => {

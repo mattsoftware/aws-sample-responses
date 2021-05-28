@@ -22,7 +22,10 @@
       "**/*.js",
       "!coverage/**",
       "!flow-typed/**"
-    ]
+    ],
+    "restoreMocks": true,
+    "clearMocks": true,
+    "resetMocks": true
   },
   "resolutions": {
     "flow-typed/semver": "7.1.3"

@@ -1,6 +1,14 @@
 //@format
 //@flow strict
 
+// https://docs.aws.amazon.com/cli/latest/reference/lambda/invoke.html
+module.exports.invoke = (statusCode = 200, version = '$LATEST', body) => {
+    return {
+        ExecutedVersion: version,
+        StatusCode: statusCode,
+    };
+};
+
 /*:: import type { AWS_Lambda_Context } from '../types/lambda'; */
 
 module.exports.event_context = (context /*: $Shape<AWS_Lambda_Context> */) /*: AWS_Lambda_Context */ => {
