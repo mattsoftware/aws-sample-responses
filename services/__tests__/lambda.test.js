@@ -5,7 +5,7 @@ const lambda = require('../lambda');
 
 describe('Lambda api tests', () => {
     test('invoke', () => {
-        expect(lambda.invoke()).toEqual({ StatusCode: 200, ExecutedVersion: '$LATEST' });
+        expect(lambda.invoke()).toEqual({ StatusCode: 200, ExecutedVersion: '$LATEST', Payload: '' });
     });
 });
 

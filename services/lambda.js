@@ -2,10 +2,12 @@
 //@flow strict
 
 // https://docs.aws.amazon.com/cli/latest/reference/lambda/invoke.html
-module.exports.invoke = (statusCode = 200, version = '$LATEST', body) => {
+module.exports.invoke = (statusCode = 200, version = '$LATEST', payload = '', other = {}) => {
     return {
         ExecutedVersion: version,
         StatusCode: statusCode,
+        Payload: payload,
+        ...other,
     };
 };
 
