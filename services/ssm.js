@@ -30,3 +30,19 @@ module.exports.getParameters = params => {
     }
 };
 
+// https://docs.aws.amazon.com/cli/latest/reference/ssm/get-parameters-by-path.html
+module.exports.getParametersByPath = params => {
+    return {
+        "Parameters": params.map(v => ({
+            "Name": "helloWorld",
+            "Type": "String",
+            "Value": "Don't worry, be happy!",
+            "Version": 1,
+            "LastModifiedDate": 1542308384.555,
+            "ARN": "arn:aws:ssm:us-east-1:123456789012:parameter/helloWorld",
+            ...v
+        })),
+        "InvalidParameters": []
+    }
+};
+
