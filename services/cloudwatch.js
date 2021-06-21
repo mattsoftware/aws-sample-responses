@@ -1,4 +1,3 @@
-//@format
 
 // https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/describe-alarms.html
 module.exports.describeAlarms = alarms => {
@@ -33,6 +32,28 @@ module.exports.describeAlarms = alarms => {
             "MetricName": "CPUUtilization",
             ...v,
         })),
+    };
+};
+
+// https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/get-metric-statistics.html
+module.exports.getMetricStatistics = (
+    label /*:string*/ = "CPUUtilization",
+    metric /*:string*/ = "Maximum",
+    datapoints/*:Array<any>*/ = [{}]
+) => {
+    return {
+        "Datapoints": datapoints.map(v => {
+            const datapoint = {
+                "Timestamp": "2014-04-09T11:18:00Z",
+                "Unit": "Percent",
+            };
+            datapoint[metric] = 44.79;
+            return {
+                ...datapoint,
+                ...v,
+            };
+        }),
+        "Label": label,
     };
 };
 
