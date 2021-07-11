@@ -77,7 +77,65 @@ module.exports.describeInstances = (instances/*:any*/) => {
     };
 };
 
-//https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-security-groups.html
+// https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instance-status.html
+/*:: type InstanceStatusResult = {
+    InstanceId: string,
+    InstanceState: {
+        Code: number,
+        Name: string,
+    },
+    AvailabilityZone: string,
+    SystemStatus: {
+        Status: string,
+        Details: Array<{
+            Status: string,
+            Name: string,
+        }>,
+    },
+    InstanceStatus: {
+        Status: string,
+        Details: Array<{
+            Status: string,
+            Name: string,
+        }>,
+    }
+} */
+/*:: type DescribeInstanceStatusResult = {
+    InstanceStatuses: Array<InstanceStatusResult>,
+} */
+module.exports.describeInstanceStatus = (statuses/*:Array<$Shape<InstanceStatusResult>>*/) /*:DescribeInstanceStatusResult*/ => {
+    return {
+        "InstanceStatuses": statuses.map(s => ({
+            "InstanceId": "i-1234567890abcdef0",
+            "InstanceState": {
+                "Code": 16,
+                "Name": "running"
+            },
+            "AvailabilityZone": "us-east-1d",
+            "SystemStatus": {
+                "Status": "ok",
+                "Details": [
+                    {
+                        "Status": "passed",
+                        "Name": "reachability"
+                    }
+                ]
+            },
+            "InstanceStatus": {
+                "Status": "ok",
+                "Details": [
+                    {
+                        "Status": "passed",
+                        "Name": "reachability"
+                    }
+                ]
+            },
+            ...s,
+        })),
+    };
+};
+
+// https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-security-groups.html
 module.exports.describeSecurityGroups = (groups/*:any*/) => {
     return {
         "SecurityGroups": groups.map(g => ({

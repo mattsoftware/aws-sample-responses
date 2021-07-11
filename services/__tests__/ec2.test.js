@@ -98,6 +98,36 @@ describe('ec2 tests', () => {
         });
     });
 
+    describe('describeInstanceStatus', () => {
+        test('Describes some instance statuses', () => {
+            const result = ec2.describeInstanceStatus([{}, {}]);
+            expect(result).toEqual({
+                InstanceStatuses: [
+                    expect.objectContaining({
+                        InstanceId: 'i-1234567890abcdef0',
+                        InstanceState: expect.objectContaining({ Name: 'running' }),
+                    }),
+                    expect.objectContaining({
+                        InstanceId: 'i-1234567890abcdef0',
+                        InstanceState: expect.objectContaining({ Name: 'running' }),
+                    }),
+                ],
+            });
+        });
+
+        test('Overrides some instance statuses', () => {
+            const result = ec2.describeInstanceStatus([{InstanceId: 'i-abc', InstanceState: {Name: 'terminated'}}]);
+            expect(result).toEqual({
+                InstanceStatuses: [
+                    expect.objectContaining({
+                        InstanceId: 'i-abc',
+                        InstanceState: expect.objectContaining({ Name: 'terminated' }),
+                    }),
+                ],
+            });
+        });
+    });
+
     describe('describeSecurityGroup tests', () => {
         test('Describes security groups', () => {
             return expect(ec2.describeSecurityGroups([{}, { GroupId: 'sg-1234' }])).toEqual({
