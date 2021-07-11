@@ -51,4 +51,32 @@ describe('codedeploy tests', () => {
             );
         });
     });
+
+    describe('getDeploymentTarget tests', () => {
+        test('Gets a deployment target', () => {
+            const result = codedeploy.getDeploymentTarget({});
+            expect(result).toEqual({
+                deploymentTarget: {
+                    deploymentTargetType: 'InstanceTarget',
+                    instanceTarget: expect.objectContaining({
+                        status: 'Succeeded',
+                        targetId: 'i-a1b2c3d4e5f611111',
+                    }),
+                },
+            });
+        });
+
+        test('overrides a deployment target', () => {
+            const result = codedeploy.getDeploymentTarget({ targetId: 'i-abc' });
+            expect(result).toEqual({
+                deploymentTarget: {
+                    deploymentTargetType: 'InstanceTarget',
+                    instanceTarget: expect.objectContaining({
+                        status: 'Succeeded',
+                        targetId: 'i-abc',
+                    }),
+                },
+            });
+        });
+    });
 });
