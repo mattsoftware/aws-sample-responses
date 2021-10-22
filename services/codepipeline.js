@@ -156,8 +156,8 @@ module.exports.listActionExecutions = (details/*: Array<Object> */) /*: {} */ =>
              "input": { 
                 "actionTypeId": { 
                    "category": "Deploy",
-                   "owner": "11111111",
-                   "provider": "AWS",
+                   "owner": "AWS",
+                   "provider": "CodeDeploy",
                    "version": "1"
                 },
                 "configuration": {
@@ -177,7 +177,7 @@ module.exports.listActionExecutions = (details/*: Array<Object> */) /*: {} */ =>
                 },
                 "roleArn": "arn:aws:iam::11111111:role/TestDeployRole"
              },
-             "lastUpdateTime": 1592011736,
+             "lastUpdateTime": "2020-06-13T11:28:56.333000+10:00",
              "output": {
                 "executionResult": {
                    "externalExecutionId": "xxxxxxx-xxxxxx-xxxxxxxxx-xxx",
@@ -199,7 +199,7 @@ module.exports.listActionExecutions = (details/*: Array<Object> */) /*: {} */ =>
              "pipelineExecutionId": "yyyyy-yyyyyyy-yyy",
              "pipelineVersion": 1,
              "stageName": "Deploy",
-             "startTime": 1592011736,
+             "startTime": "2020-07-03T15:09:35.339000+10:00",
              "status": "Success",
               ...v
           }
