@@ -1,5 +1,6 @@
 //@format
 
+exports.ApiGateway = require('./services/apigateway');
 exports.AutoScaling = require('./services/autoscaling');
 exports.CloudWatch = require('./services/cloudwatch');
 exports.CodeDeploy = require('./services/codedeploy');
