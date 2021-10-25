@@ -32,4 +32,22 @@ describe('ecs tests', () => {
             });
         });
     });
+
+    describe('updateService tests', () => {
+        test('Update service', () => {
+            return expect(ecs.updateService({})).toEqual(
+                expect.objectContaining({
+                    clusterArn: 'arn:aws:ecs:us-west-2:123456789012:cluster/default',
+                }),
+            );
+        });
+
+        test('Update service with override', () => {
+            return expect(ecs.updateService({ clusterArn: 'arn:aws:ecs:us-west-2:123456789012:cluster/boo' })).toEqual(
+                expect.objectContaining({
+                    clusterArn: 'arn:aws:ecs:us-west-2:123456789012:cluster/boo',
+                }),
+            );
+        });
+    });
 });
