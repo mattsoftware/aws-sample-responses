@@ -1,11 +1,16 @@
 //@flow strict
 
+/*:: import type { AWS_ARN } from '../types/aws'; */
 /*:: import type { AWS_ECS_Service } from '../types/ecs'; */
-
+/*:: type AWS_ECS_Service_Failure = {
+    arn: AWS_ARN,
+    reason: string,
+    detail: string,
+}*/
 // https://docs.aws.amazon.com/cli/latest/reference/ecs/describe-services.html
-module.exports.describeServices = (services /*:Array<AWS_ECS_Service>*/, failures /*:Array<AWS_ECS_Service>*/) => {
+module.exports.describeServices = (services /*:Array<AWS_ECS_Service>*/, failures /*:Array<AWS_ECS_Service_Failure>*/) /*:{services: Array<AWS_ECS_Service>, failures: Array<AWS_ECS_Service_Failure> }*/ =>  {
     return {
-        "services": services.map<AWS_ECS_Service>(service => ({
+        "services": services.map(service => ({
             "status": "ACTIVE",
             "taskDefinition": "arn:aws:ecs:us-west-2:123456789012:task-definition/amazon-ecs-sample:1",
             "pendingCount": 0,
@@ -37,7 +42,7 @@ module.exports.describeServices = (services /*:Array<AWS_ECS_Service>*/, failure
             "runningCount": 10,
             ...service,
         })),
-        "failures": failures.map<AWS_ECS_Service>(failure => ({...failure})),
+        "failures": failures.map(failure => ({...failure})),
     };
 };
 
